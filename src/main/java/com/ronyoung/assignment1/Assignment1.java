@@ -111,10 +111,9 @@ public class Assignment1 {
     */
     private double valueOfSavingsCalculator(double rate,
             double numberOfPeriods) {
-        Scanner input = new Scanner(System.in);
         System.out.print("What is your monthly payment? ");
         
-        double monthlyPayment = input.nextDouble();
+        double monthlyPayment = sc.nextDouble();
         
         var futureValue = monthlyPayment * (1 - Math.pow(1 + 
                 rate, numberOfPeriods) / 
@@ -129,10 +128,9 @@ public class Assignment1 {
     */
     private double savingsGoalCalculator(double rate, double numberOfPeriods) {
         
-        Scanner input = new Scanner(System.in);
         System.out.print("What is your savings goal? ");
         
-        double savingsGoal = input.nextDouble();
+        double savingsGoal = sc.nextDouble();
         
         var savePerMonth = savingsGoal * 
                 (rate / (1- Math.pow(1 + rate, numberOfPeriods)));
