@@ -44,21 +44,37 @@ public class Assignment1 {
             choice = menu();
             System.out.println("Choice = " + choice);
             switch (choice) {
+                /* 
+                If 'A' is selected, calls loanCalculator method and finds result
+                using user's gathered information.
+                */
                 case 'A' -> {
                     result = loanCalculator(presentValue, rate, numberOfPeriods);
                     System.out.println("Your monthly payment should be: $" + result);
                 }
+                /*
+                If 'B' is selected, calls valueOfSavingsCalculator method and 
+                finds result using user's gathered information.
+                */
                 case 'B' -> {
                     result = valueOfSavingsCalculator(rate, numberOfPeriods);
                     System.out.println("Your savings are: $" + (result * -1));
                 }
+                /*
+                If 'C' is selected, calls savingsGoalCalculator method and finds
+                result using user's gathered information.
+                */
                 case 'C' -> {
                     result = savingsGoalCalculator(rate, numberOfPeriods);
                     System.out.println("You should set aside $" + (result * -1) + " each month.");
                 }
+                /*
+                If 'D' is selected, prints "Exiting" then loop is ended.
+                */
                 case 'D' ->
                     System.out.println("Exiting");
                 default ->
+                    // Shouldn't show up but if seen something is wrong.
                     System.out.println("I should never see this");
             }
         } while (choice != 'D');
@@ -68,8 +84,10 @@ public class Assignment1 {
     
     // Just displays text for the menu.
     private void displayMenuText() {
+        // Request for input.
         System.out.println("Please enter the letter for one of the following:");
 
+        // Menu options.
         System.out.println("A. Loan Calculator");
         System.out.println("B. Future Value of Sabings Calculator");
         System.out.println("C. Savings Goal Calculator");
@@ -78,14 +96,20 @@ public class Assignment1 {
     
     // Resquests and handles menu options input from the user.
     private char menu() {
+        
         char choice;
 
+        // Loop to get desired letter input from user.
         do {
             displayMenuText();
+            /* 
+            Checks if the user input is an allowed vlaue, 
+            if not informs them it's not and askes for input again. 
+            */
             if (sc.hasNext("[a-dA-D]")) {
                 choice = sc.next().toUpperCase().charAt(0);
             } else {
-                System.out.println("Invalid choice");
+                System.out.println("Invalid choice, please select again");
                 choice = 'z';
             }
             sc.nextLine();
@@ -99,6 +123,8 @@ public class Assignment1 {
     */
     private double loanCalculator(double presentValue, double rate, 
             int numberOfPeriods) {
+        
+        //Equation to find monthly payment.
         var monthlyPayment = presentValue * rate / 
                 (1 - Math.pow(1 + rate, -numberOfPeriods));
         
@@ -111,10 +137,11 @@ public class Assignment1 {
     */
     private double valueOfSavingsCalculator(double rate,
             double numberOfPeriods) {
-        System.out.print("What is your monthly payment? ");
         
+        System.out.print("What is your monthly payment? ");
         double monthlyPayment = sc.nextDouble();
         
+        //Equation to find future value of savings.
         var futureValue = monthlyPayment * (1 - Math.pow(1 + 
                 rate, numberOfPeriods) / 
                 rate);
@@ -129,9 +156,9 @@ public class Assignment1 {
     private double savingsGoalCalculator(double rate, double numberOfPeriods) {
         
         System.out.print("What is your savings goal? ");
-        
         double savingsGoal = sc.nextDouble();
         
+        // Equation to find the amount saved per month.
         var savePerMonth = savingsGoal * 
                 (rate / (1- Math.pow(1 + rate, numberOfPeriods)));
         
