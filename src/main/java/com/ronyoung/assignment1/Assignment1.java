@@ -66,7 +66,7 @@ public class Assignment1 {
 
         // Menu options.
         System.out.println("A. Loan Calculator");
-        System.out.println("B. Future Value of Sabings Calculator");
+        System.out.println("B. Future Value of Savings Calculator");
         System.out.println("C. Savings Goal Calculator");
         System.out.println("D. Exit");
     }
