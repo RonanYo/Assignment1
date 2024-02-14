@@ -18,24 +18,7 @@ public class Assignment1 {
         // Declared variables to be used in do-while loop below.
         char choice;
         double result;
-        
-        // Get user's rate.     
-        System.out.print("What is your rate? ");
-        double rate = sc.nextDouble() / 12;
-        
-        // Get users loan length in months.
-        System.out.print("How many months? ");
-        int numberOfPeriods = sc.nextInt();
-        
-        // Get user's loan amount.
-        System.out.print("How much is your loan? ");
-        double presentValue = sc.nextDouble();
-        
-        // Print out user's gathered information
-        System.out.println("Annual interest rate: " + rate * 12);
-        System.out.println("Term in months: " + numberOfPeriods);
-        System.out.println("Loan amount: " + presentValue);
-        
+            
         /* 
         Loop to call methods based on user's menu choice and then
         print their results.
@@ -44,28 +27,22 @@ public class Assignment1 {
             choice = menu();
             System.out.println("Choice = " + choice);
             switch (choice) {
-                /* 
-                If 'A' is selected, calls loanCalculator method and finds result
-                using user's gathered information.
-                */
+                
+                //If 'A' is selected, calls loanCalculator method.
                 case 'A' -> {
-                    result = loanCalculator(presentValue, rate, numberOfPeriods);
+                    result = loanCalculator();
                     System.out.println("Your monthly payment should be: $" + result);
                 }
-                /*
-                If 'B' is selected, calls valueOfSavingsCalculator method and 
-                finds result using user's gathered information.
-                */
+                
+                //If 'B' is selected, calls valueOfSavingsCalculator method.
                 case 'B' -> {
-                    result = valueOfSavingsCalculator(rate, numberOfPeriods);
+                    result = valueOfSavingsCalculator();
                     System.out.println("Your savings are: $" + (result * -1));
                 }
-                /*
-                If 'C' is selected, calls savingsGoalCalculator method and finds
-                result using user's gathered information.
-                */
+                
+                //If 'C' is selected, calls savingsGoalCalculator method
                 case 'C' -> {
-                    result = savingsGoalCalculator(rate, numberOfPeriods);
+                    result = savingsGoalCalculator();
                     System.out.println("You should set aside $" + (result * -1) + " each month.");
                 }
                 /*
@@ -117,52 +94,110 @@ public class Assignment1 {
         return choice;
     }
     
+    // Method used to get user's rate.     
+    private double userRate() {
+        
+        System.out.print("Annual Interest Rate: ");
+        double rate = sc.nextDouble() / 12;
+        
+        return rate;
+    }
+    
+    // Method to get users loan length in months.
+    private int userPeriods() {
+        
+        
+        System.out.print("Term in months: ");
+        int numberOfPeriods = sc.nextInt();
+        
+        return numberOfPeriods;
+    }
+    
+    // Method to get user's loan amount.
+    private double userLoanValue() {
+        
+        
+        System.out.print("Loan Amount: ");
+        double presentValue = sc.nextDouble();
+        
+        return presentValue;
+    }
+    // Method to get user's current payment. 
+    private double userPaymentAmount() {
+        
+        // Method to get user's current payment. 
+        System.out.print("Monthly Payment to Savings: ");
+        double payment = sc.nextDouble();
+        
+        return payment;
+    }
+    
+    // Method to get user's desired savings goal.
+    private double userSavingsGoal() { 
+        
+        // Get user's desired savings goal.
+        System.out.print("Savings Goal: ");
+        double savingsGoal = sc.nextDouble();
+        
+        return savingsGoal;
+    }
+    
     /* 
     Finds the monthly payment based on the user's inputted loan amount, rate,
     and term in months.
     */
-    private double loanCalculator(double presentValue, double rate, 
-            int numberOfPeriods) {
+    private double loanCalculator() {
+        
+        // Calls to methods to get user information.
+        double rate = userRate();
+        int numberOfPeriods = userPeriods();
+        double presentValue = userLoanValue();
         
         //Equation to find monthly payment.
         var monthlyPayment = presentValue * rate / 
                 (1 - Math.pow(1 + rate, -numberOfPeriods));
         
-        return monthlyPayment;
+        // Returns the monthlyPayment rounded to two decimal points.
+        return Math.round(monthlyPayment * 100.0) / 100.0;
     }
     
     /* 
     Finds the amount of money user will save with the rate, term in months,
     and monthly payment.
     */
-    private double valueOfSavingsCalculator(double rate,
-            double numberOfPeriods) {
+    private double valueOfSavingsCalculator() {
         
-        System.out.print("What is your monthly payment? ");
-        double monthlyPayment = sc.nextDouble();
+        // Calls to methods to get user information.
+        double rate = userRate();
+        int numberOfPeriods = userPeriods();
+        double payment = userPaymentAmount();
+        
         
         //Equation to find future value of savings.
-        var futureValue = monthlyPayment * (1 - Math.pow(1 + 
-                rate, numberOfPeriods) / 
-                rate);
-        
-        return futureValue;
+        var futureValue = payment * ((1 - Math.pow(1 + rate, numberOfPeriods))
+                / rate);
+                
+        // Returns the futureValue rounded to two decimal points.
+        return Math.round(futureValue * 100.0) / 100.0;
     }
     
     /* 
     Finds how much the user should set aside each month to meet a 
     particular savings goal.
     */
-    private double savingsGoalCalculator(double rate, double numberOfPeriods) {
+    private double savingsGoalCalculator() {
         
-        System.out.print("What is your savings goal? ");
-        double savingsGoal = sc.nextDouble();
+        // Calls to methods to get user information.
+        double rate = userRate();
+        int numberOfPeriods = userPeriods();
+        double savingsGoal = userSavingsGoal();
         
         // Equation to find the amount saved per month.
         var savePerMonth = savingsGoal * 
                 (rate / (1- Math.pow(1 + rate, numberOfPeriods)));
         
-        return savePerMonth;
+        // Returns the savePerMonth rounded to two decimal points.
+        return Math.round(savePerMonth * 100.0) / 100.0;
         
     }
     
